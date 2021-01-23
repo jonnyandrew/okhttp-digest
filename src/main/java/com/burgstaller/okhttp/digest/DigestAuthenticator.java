@@ -237,17 +237,10 @@ public class DigestAuthenticator implements CachingAuthenticator {
         }
 
         // Add method name and request-URI to the parameter map
-        if (route == null || !route.requiresTunnel()) {
-            final String method = request.method();
-            final String uri = RequestLine.INSTANCE.requestPath(request.url());
-            parameters.put("methodname", method);
-            parameters.put("uri", uri);
-        } else {
-            final String method = "CONNECT";
-            final String uri = request.url().host() + ':' + request.url().port();
-            parameters.put("methodname", method);
-            parameters.put("uri", uri);
-        }
+        final String method = request.method();
+        final String uri = RequestLine.INSTANCE.requestPath(request.url());
+        parameters.put("methodname", method);
+        parameters.put("uri", uri);
 
         final String charset = parameters.get("charset");
         if (charset == null) {
